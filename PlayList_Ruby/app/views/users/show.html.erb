@@ -1,0 +1,23 @@
+ <a href="/songs">Dashboard</a><br>
+    <a href="/sessions/destroy">Logout</a><hr>
+    <h1><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Artist</th>
+          <th>Title</th>
+          <th>Times Added</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Song.all.each do |song| %>
+        <% if Add.where(user: @user).where(song: song).count > 0 %>
+          <tr>
+            <td><%= song.artist %></td>
+            <td><%= song.title %></td>
+            <td><%= Add.where(user: @user).where(song: song).count %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>

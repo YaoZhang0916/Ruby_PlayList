@@ -1,0 +1,21 @@
+    <a href="/songs">Dashboard</a><br>
+    <a href="/sessions/destroy">Logout</a><hr>
+    <h1>Others who added <%= @song.artist %> - <%= @song.title %></h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Times Added</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <% if Add.find_by_song_id_and_user_id(@song.id, user.id) && user.id != session[:user_id] %>
+          <tr>
+            <td><a href="/users/<%= user.id %>"><%= user.first_name %> <%= user.last_name %></a></td>
+            <td><%= Add.where(song: @song).where(user: user.id).count %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>

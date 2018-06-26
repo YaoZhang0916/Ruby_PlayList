@@ -1,0 +1,63 @@
+<h1>Welcome to Playlists!</h1>
+<div class="row">
+	<div class="col-md-6">
+    <h2>Register:</h2>
+    <% if flash[:regerrors] %>
+      <% flash[:regerrors].each do |error| %>
+      <p class="errors"><%= error %></p>
+      <% end %>
+    <% end %>
+    <form class="" action="/users/new" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <table>
+      	<tbody>
+      		<tr>
+      			<td>  <label for="user[first_name]">First Name: </label></td>
+      			<td>  <input type="text" name="user[first_name]" value=""></td>
+      		</tr>
+      		<tr>
+      			<td>   <label for="user[last_name]">Last Name: </label></td>
+      			<td>   <input type="text" name="user[last_name]" value=""></td>
+      		</tr>
+      		<tr>
+      			<td><label for="user[email]">Email: </label></td>
+      			<td><input type="text" name="user[email]" value=""></td>
+      		</tr>
+      		<tr>
+      			<td><label for="user[password]">Password: </label></td>
+      			<td><input type="password" name="user[password]" value=""></td>
+      		</tr>
+      		<tr>
+      			<td><label for="user[password_confirmation]">Password Confirmation: </label></td>
+      			<td><input type="password" name="user[password_confirmation]" value=""></td>
+      		</tr>
+      	</tbody>
+      </table>   
+      <input type="submit" name="register" value="Register">
+    </form>
+	</div>
+
+	<div class="col-md-6">
+    <h2>Login:</h2>
+	    <% if flash[:logerrors] %>
+	    <p class="errors"><%= flash[:logerrors] %></p>
+	    <% end %>
+    <form class="" action="/sessions" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <table>
+      	<tbody>
+      		<tr>
+      			<td><label for="email">Email: </label></td>
+      			<td><input type="text" name="email" value=""></td>
+      		</tr>
+      		<tr>
+      			<td><label for="password">Password: </label></td>
+      			<td><input type="password" name="password" value=""></td>
+      		</tr>
+      	</tbody>
+      </table>
+      <input type="submit" name="login" value="Login">
+    </form>
+	</div>
+</div>
+

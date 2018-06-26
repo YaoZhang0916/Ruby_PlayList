@@ -1,0 +1,42 @@
+    <h1>Welcome, <%= User.find(session[:user_id]).first_name %>!</h1>
+    <a href="/sessions/destroy">Logout</a><hr>
+    <h1>Songs in Our Hub</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Artist</th>
+          <th>Title</th>
+          <th>Times Added</th>
+          <th>Add to Playlist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Song.all.order(id: :desc).each do |song| %>
+        <tr>
+          <td><%= song.artist %></td>
+          <td><a href="/songs/<%= song.id %>"><%= song.title %></a></td>
+          <td><%= Add.where(song: song).count %></td>
+          <td><form class="" action="/songs/addexisting" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="hidden" name="songid" value="<%= song.id %>">
+                <input type="submit" name="submit" value="Add">
+              </form>
+        </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <h2>Add a Song</h2>
+    <form class="" action="/songs" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <label for="title">Title: </label>
+      <input type="text" name="title" value=""><br>
+      <label for="artist">Artist: </label>
+      <input type="text" name="artist" value=""><br>
+      <input type="submit" name="submit" value="Add">
+    </form>
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+      <p class="errors"><%= error %></p>
+      <% end %>
+    <%end %>
